@@ -1,7 +1,7 @@
 <script lang="ts">
-    import mainDiagram from "../../assets/main-diagram.png"
-    import slackExample from "../../assets/slack-example.png"
-    import machineLearning from "../../assets/machine-learning.jpg"
+    import mainDiagram from "https://api.indexter.tech/main-diagram.png"
+    import slackExample from "https://api.indexter.tech/slack-example.png"
+    import machineLearning from "https://api.indexter.tech/machine-learning.jpg"
 </script>
 
 <div class="use-cases" id="use-cases">
