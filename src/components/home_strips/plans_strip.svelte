@@ -51,6 +51,7 @@
     }
     .clickable-card {
         text-decoration: none;
+        flex-basis: min-content;
         color: $white-smoke;
         transition: color 300ms;
         i {transition: color 300ms;}

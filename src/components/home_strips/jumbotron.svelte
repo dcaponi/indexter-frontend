@@ -32,6 +32,7 @@
         text-align: center;
     }
     video {
+        width: 100%;
         max-width: 800px;
         display: block;
         margin: auto;
