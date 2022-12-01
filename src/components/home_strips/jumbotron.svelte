@@ -1,12 +1,15 @@
 <script lang="ts">
-    import searchDemo from "../../assets/indexter_demo.mp4"
+    import searchDemo from "https://api.indexter.tech/indexter_demo.mp4"
 
 </script>
 
 <div class="jumbotron">
     <h2 class="strip-title">Supercharge your knowledge base</h2>
     <!-- svelte-ignore a11y-media-has-caption -->
-    <video src={searchDemo} type="video/mp4"/>
+
+    <video autoplay controls muted>
+        <source src={searchDemo} type="video/mp4"/>
+    </video>
     <main>
         <p>
             Indexter unifies the search experience for your entire knowledge base where you spend most of your time. Let Indexter find and bring you the contextually relevant source material to help you make decisions faster and never lose valuable historical context to the documentation void.
@@ -21,8 +24,7 @@
     }
     main {
         margin: auto;
-        width: 100%;
-        max-width: 800px;
+        max-width: 50%;
         text-align: center;
     }
     .strip-title {
@@ -30,6 +32,7 @@
         text-align: center;
     }
     video {
+        width: 100%;
         max-width: 800px;
         display: block;
         margin: auto;
