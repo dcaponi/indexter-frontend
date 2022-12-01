@@ -50,8 +50,8 @@
         text-align: center;
     }
     .clickable-card {
-        text-decoration: none;
         flex-basis: min-content;
+        text-decoration: none;
         color: $white-smoke;
         transition: color 300ms;
         i {transition: color 300ms;}
