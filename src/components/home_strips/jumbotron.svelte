@@ -1,5 +1,5 @@
 <script lang="ts">
-    import searchDemo from "https://api.indexter.tech/indexter_demo.mp4"
+    import searchDemo from "../../assets/indexter_demo.mp4"
 
 </script>
 
