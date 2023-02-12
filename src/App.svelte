@@ -11,28 +11,45 @@
   import NavBar from './components/nav_bar.svelte';
   
   import ProtectedRoute from './components/protected_route.svelte';
+	import { onMount } from 'svelte';
 
-   let httpClient = axios.create({
-        baseURL: import.meta.env.VITE_AUTH_SERVICE_URL,
-        proxy: false,
-        withCredentials: true,
-    });
+  let httpClient = axios.create({
+      baseURL: import.meta.env.VITE_AUTH_SERVICE_URL,
+      proxy: false,
+      withCredentials: true,
+  });
 
-    (async () => {
-        let status = await httpClient.get("/status")
-        loggedIn.set(status.data.loggedIn);
-    })();
+  (async () => {
+      let status = await httpClient.get("/status")
+      loggedIn.set(status.data.loggedIn);
+  })();
+
+  onMount(()=>scrollTo())
+
+  const scrollTo = () => {
+    let hash = window.location.hash;
+    let target = document.getElementById(hash.substring(1));
+    if(target){
+      var targetPosition = target.getBoundingClientRect().top;
+      var offsetPosition = targetPosition - 100;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  }
 </script>
 
+<svelte:window on:hashchange={scrollTo}/>
 <div>
-<NavBar/>
-<Router>
-    <Route path="/" component={Home} />
-    <!-- <Route path="/about" component={About} /> -->
-    <ProtectedRoute path="/links" component={Links} />
-    <ProtectedRoute path="/search" component={Search} />
-</Router>
-<Footer/>
+  <NavBar/>
+  <Router>
+      <Route path="/" component={Home} />
+      <!-- <Route path="/about" component={About} /> -->
+      <ProtectedRoute path="/links" component={Links} />
+      <ProtectedRoute path="/search" component={Search} />
+  </Router>
+  <Footer/>
 </div>
 
 <style lang="scss">

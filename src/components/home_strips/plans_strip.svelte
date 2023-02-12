@@ -8,8 +8,8 @@
 
 </script>
 
-<h2 class="strip-title">Plans</h2>
-<div class="three-card-strip" id="plans">
+<h2 id="plans" class="strip-title">Plans</h2>
+<div class="three-card-strip">
 
     <a href="#/plans" class="clickable-card">
             <BasicCard oneOf=3>

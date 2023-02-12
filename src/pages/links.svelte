@@ -1,8 +1,12 @@
 <script lang="ts">
     import axios from 'axios';
+    import { Loader } from '@svelteuidev/core'
     import { linkableAccounts, loggedIn } from "../store";
+	import About from './about.svelte';
 
     let google, atlassian, slack;
+
+    let loadingGoogle, loadingAtlassian = true;
 
     let httpClient = axios.create({
         baseURL: import.meta.env.VITE_AUTH_SERVICE_URL, 
@@ -26,7 +30,9 @@
     })
 
     const indexGoogleDocs = async () => {
-        let res = await httpClient.get('/index/googledocs');
+        loadingGoogle = true;
+        await httpClient.get('/index/googledocs');
+        loadingGoogle = false;
     }
 
     const indexAtlassianDocs = async () => {
@@ -38,6 +44,9 @@
     <div class="link-section">
         {#if google.linked}
         <span>Google Linked</span><button on:click={indexGoogleDocs}>Index Docs</button>
+        {#if loadingGoogle}
+            <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Indexing... Please Wait
+        {/if}
         {:else}
         <a href={google.linkURL}>connect google</a>
         {/if}
@@ -46,6 +55,9 @@
     <div class="link-section">
         {#if atlassian.linked}
         <span>Atlassian Linked</span><button on:click={indexAtlassianDocs}>Index Docs</button>
+        {#if loadingAtlassian}
+            <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Indexing... Please Wait
+        {/if}
         {:else}
         <a href={atlassian.linkURL}>connect atlassian (confluence)</a>
         {/if}
@@ -67,10 +79,17 @@
         margin-top: 100px;
     }
 
+    .loader {
+        vertical-align: middle;
+    }
+    
     .link-section {
         padding: 15px;
+        button {
+            margin-right: 10px;
+        }
         span {
-            margin-right: 20px;
+            margin-right: 10px;
         }
     }
 

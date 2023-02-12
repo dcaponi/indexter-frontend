@@ -1,5 +1,9 @@
 @import './colors.scss';
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5em;
