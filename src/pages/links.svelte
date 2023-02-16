@@ -50,7 +50,7 @@
         {#if google.linked}
         <span>Google Docs</span>
         <button on:click={indexGoogleDocs}>Index Docs</button>
-        <button on:click={() => dropDocs('docs.google.com')}>Drop Google Docs</button>
+        <!-- <button on:click={() => dropDocs('google.com/')}>Drop Google Docs</button> -->
         {#if loadingGoogle}
             <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Please Wait...
         {/if}
@@ -62,7 +62,7 @@
     <div class="link-section">
         {#if atlassian.linked}
         <span>Atlassian Confluence</span><button on:click={indexAtlassianDocs}>Index Docs</button>
-        <button on:click={() => dropDocs('atlassian.net')}>Drop Atlassian Confluence</button>
+        <!-- <button on:click={() => dropDocs('atlassian.net')}>Drop Atlassian Confluence</button> -->
         {#if loadingAtlassian}
             <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Please Wait...
         {/if}
