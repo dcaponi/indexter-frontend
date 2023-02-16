@@ -37,9 +37,7 @@
     }
 
     const dropDocs = async (source: string) => {
-        loadingGoogle = true;
         await httpClient.delete(`/docs?source=${source}`)
-        loadingGoogle = false;
     }
 
     const indexAtlassianDocs = async () => {
