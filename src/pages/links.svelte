@@ -3,6 +3,7 @@
     import { Loader } from '@svelteuidev/core'
     import { linkableAccounts, loggedIn } from "../store";
 	import About from './about.svelte';
+	import App from '../App.svelte';
 
     let google, atlassian, slack;
 
@@ -35,6 +36,12 @@
         loadingGoogle = false;
     }
 
+    const dropDocs = async (source: string) => {
+        loadingGoogle = true;
+        await httpClient.delete(`/docs?source=${source}`)
+        loadingGoogle = false;
+    }
+
     const indexAtlassianDocs = async () => {
         let res = await httpClient.get('/index/atlassiandocs');
     }
@@ -43,9 +50,11 @@
 <main>
     <div class="link-section">
         {#if google.linked}
-        <span>Google Linked</span><button on:click={indexGoogleDocs}>Index Docs</button>
+        <span>Google Docs</span>
+        <button on:click={indexGoogleDocs}>Index Docs</button>
+        <button on:click={() => dropDocs('docs.google.com')}>Drop Google Docs</button>
         {#if loadingGoogle}
-            <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Indexing... Please Wait
+            <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Please Wait...
         {/if}
         {:else}
         <a href={google.linkURL}>connect google</a>
@@ -54,9 +63,10 @@
 
     <div class="link-section">
         {#if atlassian.linked}
-        <span>Atlassian Linked</span><button on:click={indexAtlassianDocs}>Index Docs</button>
+        <span>Atlassian Confluence</span><button on:click={indexAtlassianDocs}>Index Docs</button>
+        <button on:click={() => dropDocs('atlassian.net')}>Drop Atlassian Confluence</button>
         {#if loadingAtlassian}
-            <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Indexing... Please Wait
+            <span class="loader"><Loader size={50} color="orange" variant="bars"/></span> Please Wait...
         {/if}
         {:else}
         <a href={atlassian.linkURL}>connect atlassian (confluence)</a>

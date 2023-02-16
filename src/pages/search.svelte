@@ -2,6 +2,7 @@
     import axios from 'axios';
     let query;
     let results;
+    let resultsEmpty;
 
     let httpClient = axios.create({
         baseURL: import.meta.env.VITE_AUTH_SERVICE_URL, 
@@ -12,8 +13,14 @@
     let search = async (e: Event) => {
         e.preventDefault();
         if(query) {
-            let res = await httpClient.get("docs", {params:{text: query}});
-            results = res.data.message
+            try {
+                let res = await httpClient.get("docs", {params:{text: query}});
+                results = res.data.message
+            } catch (e) {
+                if (e.response.status == 404){
+                    resultsEmpty = true;
+                }
+            }
         }
     }
 </script>
@@ -25,6 +32,9 @@
             <input type="text" id="query" name="query" bind:value={query} /> 
             <button type="submit">Search</button>
         </form>
+        {#if resultsEmpty}
+            <p>No results found</p>
+        {/if}
     </div>
     {:else}
     <div class="results-search">
@@ -35,10 +45,14 @@
         </form>
     </div>
     <div class="results-list">
-        {#each results as result}
-            <a href={result.source}><p>{result.title}</p></a>
-            <p>{result.content.split(".")[0]}</p>
-        {/each}
+        {#if resultsEmpty}
+            <p>No results found</p>
+        {:else}
+            {#each results as result}
+                <a href={result.source}><p>{result.title}</p></a>
+                <p>{result.content.split(".")[0]}</p>
+            {/each}
+        {/if}
     </div>
     {/if}
 </main>
