@@ -2,12 +2,10 @@
     import axios from 'axios';
     import { Loader } from '@svelteuidev/core'
     import { linkableAccounts, loggedIn } from "../store";
-	import About from './about.svelte';
-	import App from '../App.svelte';
 
     let google, atlassian, slack;
 
-    let loadingGoogle, loadingAtlassian = true;
+    let loadingGoogle, loadingAtlassian = false;
 
     let httpClient = axios.create({
         baseURL: import.meta.env.VITE_AUTH_SERVICE_URL, 
@@ -41,7 +39,9 @@
     }
 
     const indexAtlassianDocs = async () => {
+        loadingAtlassian = true;
         let res = await httpClient.get('/index/atlassiandocs');
+        loadingAtlassian = false;
     }
 
 </script>
